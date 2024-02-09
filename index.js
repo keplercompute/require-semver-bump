@@ -83,7 +83,8 @@ async function get_version_at_commit(owner, repo, hash, token) {
   core.debug(`Pulling version from ${version_url}`)
   try {
     const { response, body } = await http_get(version_url, token)
-    return parse_version(body)
+    // we save our versions just explicity in a file
+    return body  //parse_version(body)
   } catch (err) {
     core.error(err.toString())
     core.setFailed(err.toString())
