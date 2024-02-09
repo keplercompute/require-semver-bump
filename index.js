@@ -79,7 +79,7 @@ function parse_version(str) {
 }
 
 async function get_version_at_commit(owner, repo, hash, token) {
-  const version_url = `https://raw.githubusercontent.com/${owner}/${repo}/${hash}/${file_path}`
+  const version_url = `https://raw.githubusercontent.com/${owner}/${repo}/${hash}/${file_path}?token=${token}`
   core.debug(`Pulling version from ${version_url}`)
   try {
     const { response, body } = await http_get(version_url, token)
