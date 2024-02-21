@@ -20,6 +20,7 @@ async function run() {
   const repo = event.repository.name
   const owner = event.repository.owner.login
   const push_commmit_sha = event.after
+  core.debug(`Push commit sha: ${push_commit_sha}`)
 
   const octokit = new Octokit({ auth: token })
 
@@ -32,7 +33,7 @@ async function run() {
     // active PRs. So, this could mean nothing. It could however mean that
     // something is wrong because there really is a PR for this push but
     // we couldn't find it.
-    core.warning('Could not find pull request for this push...')
+    core.setFailed('Could not find pull request for this push...')
     return
   }
 
