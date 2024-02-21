@@ -19,14 +19,14 @@ async function run() {
 
   const repo = event.repository.name
   const owner = event.repository.owner.login
-  const push_commmit_sha = event.after
+  const push_commit_sha = event.after
   core.debug(`Push commit sha: ${push_commit_sha}`)
 
   const octokit = new Octokit({ auth: token })
 
   const { data: pulls } = await octokit.pulls.list({ owner, repo })
 
-  const pull = pulls.find(p => p.head.sha == push_commmit_sha)
+  const pull = pulls.find(p => p.head.sha == push_commit_sha)
 
   if (!pull) {
     // There will obviously be many pushes that are not to branches with
@@ -39,7 +39,7 @@ async function run() {
 
   const base_commit_sha = pull.base.sha
 
-  const head_version = await get_version_at_commit(owner, repo, push_commmit_sha, token)
+  const head_version = await get_version_at_commit(owner, repo, push_commit_sha, token)
   const base_version = await get_version_at_commit(owner, repo, base_commit_sha, token)
 
   core.debug(`Head Version: ${head_version}`)
