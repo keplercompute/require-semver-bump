@@ -16,6 +16,7 @@ async function run() {
 
   // Type: https://developer.github.com/v3/activity/events/types/#pushevent
   const event = github.context.payload
+  core.debug(JSON.stringify(event))
 
   const repo = event.repository.name
   const owner = event.repository.owner.login
